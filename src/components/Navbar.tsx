@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import '../style/navbar.css';
-
+import AuthContext from '../context/authContext';
 
 const Navbar: React.FC = () => {
+  const { token, logout } = useContext(AuthContext);
+
   return (
-    <nav className="bg-blue-500 p-4 text-white">
-      <ul className="flex space-x-4">
-        <li>
-          <Link to="/" className="hover:underline">
-            Project List
-          </Link>
-        </li>
-        <li>
-          <Link to="/active" className="hover:underline">
-            Active Project
-          </Link>
-        </li>
+    <nav>
+      <ul>
+        {token ? (
+          <>
+            <li>
+              <Link to="/">Project List</Link>
+            </li>
+            <li>
+              <Link to="/active">Active Project</Link>
+            </li>
+            <li>
+              <button onClick={logout}>Logout</button>
+            </li>
+          </>
+        ) : (
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
