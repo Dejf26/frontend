@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/projects';
+const ACTIVE_PROJECT_URL = 'http://localhost:5000/activeProject';
 
 export interface Project {
   _id?: string;
@@ -44,6 +45,26 @@ export const deleteProject = async (id: string) => {
     return response.data;
   } catch (error) {
     console.error('Error deleting project:', error);
+    throw error;
+  }
+};
+
+export const setActiveProject = async (id: string) => {
+  try {
+    const response = await axios.post(ACTIVE_PROJECT_URL, { id });
+    return response.data;
+  } catch (error) {
+    console.error('Error setting active project:', error);
+    throw error;
+  }
+};
+
+export const getActiveProject = async () => {
+  try {
+    const response = await axios.get<Project>(ACTIVE_PROJECT_URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching active project:', error);
     throw error;
   }
 };

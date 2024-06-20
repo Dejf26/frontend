@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { Project, getProjects, createProject, updateProject, deleteProject } from '../api/projectService';
+import { Project, getProjects, createProject, updateProject, deleteProject, setActiveProject, getActiveProject } from '../api/projectService';
 import '../style/projects.css';
-
 
 Modal.setAppElement('#root');
 
@@ -11,9 +10,11 @@ const ProjectList: React.FC = () => {
   const [newProject, setNewProject] = useState<Omit<Project, 'id'>>({ name: '', description: '' });
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
 
   useEffect(() => {
     loadProjects();
+    loadActiveProject();
   }, []);
 
   const loadProjects = async () => {
@@ -22,6 +23,15 @@ const ProjectList: React.FC = () => {
       setProjects(data);
     } catch (error) {
       console.error('Error loading projects:', error);
+    }
+  };
+
+  const loadActiveProject = async () => {
+    try {
+      const activeProject = await getActiveProject();
+      setActiveProjectId(activeProject._id!);
+    } catch (error) {
+      console.error('Error loading active project:', error);
     }
   };
 
@@ -56,6 +66,15 @@ const ProjectList: React.FC = () => {
       loadProjects();
     } catch (error) {
       console.error('Error deleting project:', error);
+    }
+  };
+
+  const handleSetActiveProject = async (id: string) => {
+    try {
+      await setActiveProject(id);
+      setActiveProjectId(id);
+    } catch (error) {
+      console.error('Error setting active project:', error);
     }
   };
 
@@ -95,6 +114,9 @@ const ProjectList: React.FC = () => {
             <strong>{project.name}</strong>: {project.description}
             <button onClick={() => openModal(project)} className="bg-yellow-500 text-white p-2 ml-2">Edit</button>
             <button onClick={() => handleDeleteProject(project._id!)} className="bg-red-500 text-white p-2 ml-2">Delete</button>
+            <button onClick={() => handleSetActiveProject(project._id!)} className={`p-2 ml-2 ${activeProjectId === project._id ? 'bg-green-500' : 'bg-gray-500'} text-white`}>
+              {activeProjectId === project._id ? 'Selected' : 'Select'}
+            </button>
           </li>
         ))}
       </ul>
