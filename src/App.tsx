@@ -1,13 +1,14 @@
+// src/App.tsx
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProjectList from './components/ProjectList';
 import ActiveProject from './components/ActiveProject';
+import StoryList from './components/storyList';
 import Login from './components/Login';
 import { AuthProvider } from './context/authContext';
 import AuthContext from './context/authContext';
 import './index.css';
-
 
 const PrivateRoute: React.FC<{ element: React.ReactElement }> = ({ element }) => {
   const { token } = useContext(AuthContext);
@@ -21,10 +22,11 @@ const App: React.FC = () => {
         <div>
           <Navbar />
           <div className="pt-16">
-          <Routes>
+            <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<PrivateRoute element={<ProjectList />} />} />
               <Route path="/active" element={<PrivateRoute element={<ActiveProject />} />} />
+              <Route path="/stories" element={<PrivateRoute element={<StoryList />} />} />
             </Routes>
           </div>
         </div>

@@ -1,3 +1,4 @@
+// src/components/Navbar.tsx
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/authContext';
@@ -18,6 +19,9 @@ const Navbar: React.FC = () => {
             </li>
             <li>
               <Link to="/active" className="hover:bg-gray-700 py-2 px-4 rounded">Active Project</Link>
+            </li>
+            <li>
+              <Link to="/stories" className="hover:bg-gray-700 py-2 px-4 rounded">Stories</Link>
             </li>
             <li>
               <button onClick={logout} className="hover:bg-gray-700 py-2 px-4 rounded">Logout</button>
