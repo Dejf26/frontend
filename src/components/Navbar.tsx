@@ -6,23 +6,26 @@ const Navbar: React.FC = () => {
   const { token, logout } = useContext(AuthContext);
 
   return (
-    <nav>
-      <ul>
+    <nav className="bg-black text-white py-3 px-5 fixed top-0 w-full flex justify-between items-center">
+      <div className="text-cyan-400 font-bold text-xl">
+        <Link to="/">ManageMe</Link>
+      </div>
+      <ul className="flex items-center space-x-4">
         {token ? (
           <>
             <li>
-              <Link to="/">Project List</Link>
+              <Link to="/" className="hover:bg-gray-700 py-2 px-4 rounded">Project List</Link>
             </li>
             <li>
-              <Link to="/active">Active Project</Link>
+              <Link to="/active" className="hover:bg-gray-700 py-2 px-4 rounded">Active Project</Link>
             </li>
             <li>
-              <button onClick={logout}>Logout</button>
+              <button onClick={logout} className="hover:bg-gray-700 py-2 px-4 rounded">Logout</button>
             </li>
           </>
         ) : (
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="hover:bg-gray-700 py-2 px-4 rounded">Login</Link>
           </li>
         )}
       </ul>

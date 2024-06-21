@@ -6,6 +6,8 @@ import ActiveProject from './components/ActiveProject';
 import Login from './components/Login';
 import { AuthProvider } from './context/authContext';
 import AuthContext from './context/authContext';
+import './index.css';
+
 
 const PrivateRoute: React.FC<{ element: React.ReactElement }> = ({ element }) => {
   const { token } = useContext(AuthContext);
@@ -18,8 +20,8 @@ const App: React.FC = () => {
       <Router>
         <div>
           <Navbar />
-          <div className="p-4">
-            <Routes>
+          <div className="pt-16">
+          <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<PrivateRoute element={<ProjectList />} />} />
               <Route path="/active" element={<PrivateRoute element={<ActiveProject />} />} />

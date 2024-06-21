@@ -18,15 +18,15 @@ const ActiveProject: React.FC = () => {
   };
 
   if (!activeProject) {
-    return <div>No active project selected</div>;
+    return <div className="text-center text-gray-500">No active project selected</div>;
   }
 
   return (
-    <div className="border p-4 mb-4">
-      <h2>Active Project</h2>
-      <p><strong>ID:</strong> {activeProject._id}</p>
-      <p><strong>Name:</strong> {activeProject.name}</p>
-      <p><strong>Description:</strong> {activeProject.description}</p>
+    <div className="max-w-xl mx-auto mt-8 p-6 bg-white border border-gray-300 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4 text-blue-500">Active Project</h2>
+      <p className="mb-2"><strong>ID:</strong> {activeProject._id}</p>
+      <p className="mb-2"><strong>Name:</strong> {activeProject.name}</p>
+      <p className="mb-2"><strong>Description:</strong> {activeProject.description}</p>
     </div>
   );
 };

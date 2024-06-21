@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { Project, getProjects, createProject, updateProject, deleteProject, setActiveProject, getActiveProject } from '../api/projectService';
-import '../style/projects.css';
 
 Modal.setAppElement('#root');
 
@@ -89,32 +88,32 @@ const ProjectList: React.FC = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleCreateProject} className="mb-4">
+    <div className="container mx-auto p-4">
+      <form onSubmit={handleCreateProject} className="mb-4 bg-gray-200 p-4 border border-black rounded">
         <input
           type="text"
           placeholder="Project Name"
           value={newProject.name}
           onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
-          className="border p-2 mr-2"
+          className="border p-2 mb-2 w-full"
         />
         <input
           type="text"
           placeholder="Project Description"
           value={newProject.description}
           onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-          className="border p-2 mr-2"
+          className="border p-2 mb-2 w-full"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2">Add Project</button>
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded">Add Project</button>
       </form>
 
       <ul>
         {projects.map((project) => (
-          <li key={project._id} className="border p-2 mb-2">
+          <li key={project._id} className="border p-2 mb-2 bg-gray-200">
             <strong>{project.name}</strong>: {project.description}
-            <button onClick={() => openModal(project)} className="bg-yellow-500 text-white p-2 ml-2">Edit</button>
-            <button onClick={() => handleDeleteProject(project._id!)} className="bg-red-500 text-white p-2 ml-2">Delete</button>
-            <button onClick={() => handleSetActiveProject(project._id!)} className={`p-2 ml-2 ${activeProjectId === project._id ? 'bg-green-500' : 'bg-gray-500'} text-white`}>
+            <button onClick={() => openModal(project)} className="bg-yellow-500 text-white p-2 ml-2 rounded">Edit</button>
+            <button onClick={() => handleDeleteProject(project._id!)} className="bg-red-500 text-white p-2 ml-2 rounded">Delete</button>
+            <button onClick={() => handleSetActiveProject(project._id!)} className={`p-2 ml-2 rounded ${activeProjectId === project._id ? 'bg-green-500' : 'bg-gray-500'} text-white`}>
               {activeProjectId === project._id ? 'Selected' : 'Select'}
             </button>
           </li>
@@ -126,28 +125,30 @@ const ProjectList: React.FC = () => {
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           contentLabel="Edit Project"
-          className="modal"
-          overlayClassName="modal-overlay"
+          className="fixed inset-0 flex items-center justify-center z-50"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-40"
         >
-          <h2>Edit Project</h2>
-          <form onSubmit={handleUpdateProject} className="mb-4">
-            <input
-              type="text"
-              placeholder="Project Name"
-              value={editingProject.name}
-              onChange={(e) => setEditingProject({ ...editingProject, name: e.target.value })}
-              className="border p-2 mr-2"
-            />
-            <input
-              type="text"
-              placeholder="Project Description"
-              value={editingProject.description}
-              onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
-              className="border p-2 mr-2"
-            />
-            <button type="submit" className="bg-green-500 text-white p-2">Save Changes</button>
-            <button type="button" onClick={closeModal} className="bg-gray-500 text-white p-2 ml-2">Cancel</button>
-          </form>
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
+            <h2 className="text-2xl mb-4">Edit Project</h2>
+            <form onSubmit={handleUpdateProject} className="mb-4">
+              <input
+                type="text"
+                placeholder="Project Name"
+                value={editingProject.name}
+                onChange={(e) => setEditingProject({ ...editingProject, name: e.target.value })}
+                className="border p-2 mb-2 w-full"
+              />
+              <input
+                type="text"
+                placeholder="Project Description"
+                value={editingProject.description}
+                onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
+                className="border p-2 mb-2 w-full"
+              />
+              <button type="submit" className="bg-green-500 text-white p-2 rounded">Save Changes</button>
+              <button type="button" onClick={closeModal} className="bg-gray-500 text-white p-2 ml-2 rounded">Cancel</button>
+            </form>
+          </div>
         </Modal>
       )}
     </div>
