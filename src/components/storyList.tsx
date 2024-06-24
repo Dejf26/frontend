@@ -273,9 +273,9 @@ const StoryList: React.FC = () => {
             <p><strong>Name:</strong> {storyDetails.name}</p>
             <p><strong>Description:</strong> {storyDetails.description}</p>
             <p><strong>Priority:</strong> {storyDetails.priority}</p>
-            <p><strong>Project:</strong> {projects.find(project => project._id === storyDetails.project)?.name || 'N/A'}</p>
+            <p><strong>Project:</strong> {projects.find(project => project._id === storyDetails.project)?.name || 'No Project'}</p>
             <p><strong>Status:</strong> {storyDetails.status}</p>
-            <p><strong>Owner:</strong> {users.find(user => user._id === storyDetails.owner)?.firstName || 'N/A'}</p>
+            <p><strong>Owner:</strong> {users.find(user => user._id === storyDetails.owner)?.firstName || 'Unassigned'}</p>
             <p><strong>Created At:</strong> {new Date(storyDetails.createdAt).toLocaleString()}</p>
             <button onClick={closeDetailsModal} className="bg-gray-500 text-white p-2 mt-4 rounded">Close</button>
           </div>

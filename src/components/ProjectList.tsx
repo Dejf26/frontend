@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import NotificationService from '../api/notificationService';
 import { Project, getProjects, createProject, updateProject, deleteProject, setActiveProject, getActiveProject } from '../api/projectService';
 
 Modal.setAppElement('#root');
@@ -41,8 +42,31 @@ const ProjectList: React.FC = () => {
       await createProject(newProject);
       setNewProject({ name: '', description: '' });
       loadProjects();
+      NotificationService.send({
+        title: 'New Project Created',
+        message: `Project "${newProject.name}" has been created.`,
+        date: new Date().toISOString(),
+        priority: 'medium',
+        read: false
+      });
     } catch (error) {
       console.error('Error creating project:', error);
+    }
+  };
+
+  const handleSetActiveProject = async (id: string) => {
+    try {
+      await setActiveProject(id);
+      setActiveProjectId(id);
+      NotificationService.send({
+        title: 'Active Project Set',
+        message: `Project with ID ${id} has been set as active.`,
+        date: new Date().toISOString(),
+        priority: 'low',
+        read: false
+      });
+    } catch (error) {
+      console.error('Error setting active project:', error);
     }
   };
 
@@ -65,15 +89,6 @@ const ProjectList: React.FC = () => {
       loadProjects();
     } catch (error) {
       console.error('Error deleting project:', error);
-    }
-  };
-
-  const handleSetActiveProject = async (id: string) => {
-    try {
-      await setActiveProject(id);
-      setActiveProjectId(id);
-    } catch (error) {
-      console.error('Error setting active project:', error);
     }
   };
 
