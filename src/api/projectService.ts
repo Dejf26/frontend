@@ -7,14 +7,28 @@ export interface Project {
   _id?: string;
   name: string;
   description: string;
+  tags?: string[];
+  status?: 'active' | 'archived';
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-export const getProjects = async () => {
+export const getProjects = async (filter?: { tags?: string[], status?: 'active' | 'archived' }) => {
   try {
-    const response = await axios.get<Project[]>(API_URL);
+    const response = await axios.get<Project[]>(API_URL, { params: filter });
     return response.data;
   } catch (error) {
     console.error('Error fetching projects:', error);
+    throw error;
+  }
+};
+
+export const getProjectById = async (id: string) => {
+  try {
+    const response = await axios.get<Project>(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching project by ID:', error);
     throw error;
   }
 };
@@ -68,3 +82,4 @@ export const getActiveProject = async () => {
     throw error;
   }
 };
+
