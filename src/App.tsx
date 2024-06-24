@@ -9,6 +9,7 @@ import Login from './components/Login';
 import { AuthProvider } from './context/authContext';
 import AuthContext from './context/authContext';
 import './index.css';
+import TaskList from './components/taskList';
 
 const PrivateRoute: React.FC<{ element: React.ReactElement }> = ({ element }) => {
   const { token } = useContext(AuthContext);
@@ -27,6 +28,8 @@ const App: React.FC = () => {
               <Route path="/" element={<PrivateRoute element={<ProjectList />} />} />
               <Route path="/active" element={<PrivateRoute element={<ActiveProject />} />} />
               <Route path="/stories" element={<PrivateRoute element={<StoryList />} />} />
+              <Route path="/tasks" element={<PrivateRoute element={<TaskList />} />} />
+
             </Routes>
           </div>
         </div>

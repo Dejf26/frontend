@@ -24,6 +24,9 @@ const Navbar: React.FC = () => {
               <Link to="/stories" className="hover:bg-gray-700 py-2 px-4 rounded">Stories</Link>
             </li>
             <li>
+              <Link to="/tasks" className="hover:bg-gray-700 py-2 px-4 rounded">Tasks</Link>
+            </li>
+            <li>
               <button onClick={logout} className="hover:bg-gray-700 py-2 px-4 rounded">Logout</button>
             </li>
           </>
