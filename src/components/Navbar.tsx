@@ -6,7 +6,7 @@ import AuthContext from '../context/authContext';
 import NotificationList from './NotificationList';
 
 const Navbar: React.FC = () => {
-  const { token, logout } = useContext(AuthContext);
+  const { token, logout, user } = useContext(AuthContext);
   const [unreadCount, setUnreadCount] = useState<number>(0);
   const [isNotificationListOpen, setIsNotificationListOpen] = useState<boolean>(false);
 
@@ -57,6 +57,9 @@ const Navbar: React.FC = () => {
               {isNotificationListOpen && (
                 <NotificationList onClose={handleNotificationListClose} />
               )}
+            </li>
+            <li>
+              <span className="py-2 px-4 rounded">Logged in as {user?.firstName}</span>
             </li>
             <li>
               <button onClick={logout} className="hover:bg-gray-700 py-2 px-4 rounded">Logout</button>
