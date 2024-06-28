@@ -1,4 +1,3 @@
-// src/components/NotificationIcon.tsx
 import React, { useEffect, useState } from 'react';
 import NotificationService from '../api/notificationService';
 import { FaBell } from 'react-icons/fa';

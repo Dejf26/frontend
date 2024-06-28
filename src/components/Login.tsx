@@ -11,13 +11,13 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await authLogin(login, password);
-    navigate('/'); // Przekierowanie po zalogowaniu
+    navigate('/');
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">Login</h1>
+    <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-96">
+        <h1 className="text-2xl font-bold mb-4 text-black dark:text-white">Login</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <input
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
               placeholder="Login"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-black dark:text-white"
             />
           </div>
           <div>
@@ -34,7 +34,7 @@ const Login: React.FC = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-black dark:text-white"
             />
           </div>
           <div>

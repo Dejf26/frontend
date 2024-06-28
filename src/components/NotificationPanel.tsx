@@ -1,4 +1,3 @@
-// src/components/NotificationPanel.tsx
 import React, { useEffect, useState } from 'react';
 import NotificationService, { Notification } from '../api/notificationService';
 
@@ -11,13 +10,13 @@ const NotificationPanel: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute right-0 mt-2 w-64 bg-white text-black shadow-lg rounded-lg">
+    <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 text-black dark:text-white shadow-lg rounded-lg">
       <ul>
         {notifications.map((notification, index) => (
-          <li key={index} className="border-b p-2">
+          <li key={index} className="border-b p-2 dark:border-gray-700">
             <div className="font-bold">{notification.title}</div>
             <div>{notification.message}</div>
-            <div className="text-xs text-gray-500">{new Date(notification.date).toLocaleString()}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">{new Date(notification.date).toLocaleString()}</div>
           </li>
         ))}
       </ul>

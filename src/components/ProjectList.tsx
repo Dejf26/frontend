@@ -104,27 +104,27 @@ const ProjectList: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <form onSubmit={handleCreateProject} className="mb-4 bg-gray-200 p-4 border border-black rounded">
+      <form onSubmit={handleCreateProject} className="mb-4 bg-gray-200 dark:bg-gray-800 p-4 border border-black dark:border-gray-700 rounded">
         <input
           type="text"
           placeholder="Project Name"
           value={newProject.name}
           onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
-          className="border p-2 mb-2 w-full"
+          className="border p-2 mb-2 w-full bg-white dark:bg-gray-900 text-black dark:text-white"
         />
         <input
           type="text"
           placeholder="Project Description"
           value={newProject.description}
           onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-          className="border p-2 mb-2 w-full"
+          className="border p-2 mb-2 w-full bg-white dark:bg-gray-900 text-black dark:text-white"
         />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">Add Project</button>
       </form>
 
       <ul>
         {projects.map((project) => (
-          <li key={project._id} className="border p-2 mb-2 bg-gray-200">
+          <li key={project._id} className="border p-2 mb-2 bg-gray-200 dark:bg-gray-800 text-black dark:text-white">
             <strong>{project.name}</strong>: {project.description}
             <button onClick={() => openModal(project)} className="bg-yellow-500 text-white p-2 ml-2 rounded">Edit</button>
             <button onClick={() => handleDeleteProject(project._id!)} className="bg-red-500 text-white p-2 ml-2 rounded">Delete</button>
@@ -143,7 +143,7 @@ const ProjectList: React.FC = () => {
           className="fixed inset-0 flex items-center justify-center z-50"
           overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-40"
         >
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
             <h2 className="text-2xl mb-4">Edit Project</h2>
             <form onSubmit={handleUpdateProject} className="mb-4">
               <input
@@ -151,14 +151,14 @@ const ProjectList: React.FC = () => {
                 placeholder="Project Name"
                 value={editingProject.name}
                 onChange={(e) => setEditingProject({ ...editingProject, name: e.target.value })}
-                className="border p-2 mb-2 w-full"
+                className="border p-2 mb-2 w-full bg-white dark:bg-gray-900 text-black dark:text-white"
               />
               <input
                 type="text"
                 placeholder="Project Description"
                 value={editingProject.description}
                 onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
-                className="border p-2 mb-2 w-full"
+                className="border p-2 mb-2 w-full bg-white dark:bg-gray-900 text-black dark:text-white"
               />
               <button type="submit" className="bg-green-500 text-white p-2 rounded">Save Changes</button>
               <button type="button" onClick={closeModal} className="bg-gray-500 text-white p-2 ml-2 rounded">Cancel</button>
