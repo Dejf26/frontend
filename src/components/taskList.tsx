@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Modal from 'react-modal';
 import { Task, getTasks, createTask, updateTask, deleteTask } from '../api/taskService';
 import { User, getUsers } from '../api/userService';
 import { Story, getStories } from '../api/storyService';
+import AuthContext from '../context/authContext';
+import NotificationService from '../api/notificationService';
 
 Modal.setAppElement('#root');
 
 const TaskList: React.FC = () => {
+  const { user } = useContext(AuthContext);
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [stories, setStories] = useState<Story[]>([]);
@@ -84,11 +88,20 @@ const TaskList: React.FC = () => {
       setTasks(updatedTasks);
       setEditingTask(null);
       setModalIsOpen(false);
+  
+      if (user && user._id === editingTask.assignedUser) {
+        NotificationService.send({
+          title: 'Task Updated',
+          message: `The task "${editingTask.name}" has been assigned to you.`,
+          date: new Date().toISOString(),
+          priority: 'medium',
+          read: false
+        });
+      }
     } catch (error) {
       console.error('Error updating task:', error);
     }
   };
-
   const handleDeleteTask = async (id: string) => {
     try {
       await deleteTask(id);
